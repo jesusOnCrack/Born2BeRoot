@@ -1,0 +1,107 @@
+############ MANDATORY #################
+
+Virtualization -> https://www.redhat.com/en/topics/virtualization
+
+Virtual Machine -> https://www.youtube.com/watch?v=mQP0wqNT_DI
+
+LVM ->
+1. Create 2 encrypted partitions using LVM. BornPartitions.png
+
+password (root and user)
+1. must not include the name of the user
+2. doesnt apply for root: must have at least 7 chars that are not part of the former password
+
+password user
+1. expire in 30 days
+2. 2 days minimum wihtout changing the password after creating it 
+3. user has to receive a warning message 7 days before expiration
+4. must be 10 chars long, 1 uppercase letter, 1 lowercase letter, 1 number, max 3 consecutive chars
+
+
+SELinux -> https://www.redhat.com/en/topics/linux/what-is-selinux
+1. set up SELinux to run on startup
+
+
+apt ->
+
+APTITUDE ->
+
+SSH ->
+1. Root cannot connect using SSH
+
+MAC ->
+
+firewalld ->
+1. firewall must be active on startup
+2. leave ONLY 4242 port open
+
+hostname
+1. hostname must be [user]42
+
+cron
+
+
+sudo ->
+1. Strict rules:
+	1.1. authentication using sudo has to be limited to 3 attempts of password insertions
+	1.2. custom message prompting after wrong password insertion 
+	1.3. each action using sudo has to be archived(inputs and outputs). log files saved in "/var/log/sudo/folder"
+	1.4. TTY mode has to be enabled for security reasons
+	1.5. For security reasons, paths allowed for sudo must be restricted. Ex.: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+
+TTY -> 
+
+
+user ->
+1. set up a user with a username login along with root user belonging to user42 and sudo groups
+
+group ->
+
+monitorinh.sh script Script.png
+1. developed in bash
+2. at server startup and every 10 min.
+3.script will display info:
+	3.1. operating system architechture and kernel version
+	3.2. number of physical processors
+	3.3. number of virtual processors
+	3.4. available RAM atm and utilization rate in percentage
+	3.5. current utilization rate of processors in percentage
+	3.6. date and time of last reboot
+	3.7. wether LVM is active or not
+	3.8. number of active connections
+	3.9. number of users using the server
+	3.10. number of users using the server
+	3.11. IPv4 address of my server and MAC address
+	3.12. number of commands executed with sudo program
+
+After setting up configuration files
+1. change all the passwords of the accounts present on the virtual machine, including the root
+
+Checking if the mandatory setup is correct Check.png
+
+############ BONUS ###################
+
+
+1. get a similar structure to BonusPartitions.png
+2. Set up a functional WordPress website with the following services: lighttpd, MariaDB, PHP
+2. Set up a service of my choice that is useful (NO NGINX or Apache2)
+
+############# DELIVERY #################
+Preparation
+1. turn in a signature.txt file at the root of Git repo
+2. paste the file in the signature of my machine's virtual disk
+	2.1. Open the default installation folder (where VM's are
+
+Defense
+1. Create a new user and assign it to a group
+2. explain how the script works.
+3. interupt script created wihtout editing it
+4. take a look at cron
+5. MAYBE extra services. Open more ports to suit my needs. Firewalld rules apply
+
+############# EXTRA INFO ###############
+
+KDump -> 
+NGINX ->
+Apache2 ->
+
