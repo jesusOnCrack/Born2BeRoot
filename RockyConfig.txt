@@ -4,7 +4,7 @@ Virtualization -> https://www.redhat.com/en/topics/virtualization
 
 Virtual Machine -> https://www.youtube.com/watch?v=mQP0wqNT_DI
 
-LVM ->
+LVM -> https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/5/html/deployment_guide/ch-lvm#s1-lvm-intro-whatis
 1. Create 2 encrypted partitions using LVM. BornPartitions.png
 
 password (root and user)
@@ -22,9 +22,12 @@ SELinux -> https://www.redhat.com/en/topics/linux/what-is-selinux
 1. set up SELinux to run on startup
 
 
-apt ->
+dnf (apt)-> https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/managing_software_with_the_dnf_tool/index#proc_providing-feedback-on-red-hat-documentation_managing-software-with-the-dnf-tool    https://www.redhat.com/en/blog/dnf-apt-users
 
-APTITUDE ->
+package manager -> https://www.redhat.com/en/blog/how-manage-packages
+
+APTITUDE -> https://www.digitalocean.com/community/tutorials/what-is-apt
+/*old apt with full-screen UI and extra features. can detangle conflicts.*/
 
 SSH ->
 1. Root cannot connect using SSH
@@ -40,6 +43,25 @@ hostname
 
 cron
 
+fdisk
+
+cryptsetup
+
+lsblk
+
+grep
+
+tail
+
+network 
+
+filesystem types -ext4
+
+filesystem vs linux filesystem
+mountpoints
+
+dmsetup
+ what is a logical partion. what is a phyusical partition. what is an extended partition.
 
 sudo ->
 1. Strict rules:
@@ -81,7 +103,6 @@ Checking if the mandatory setup is correct Check.png
 
 ############ BONUS ###################
 
-
 1. get a similar structure to BonusPartitions.png
 2. Set up a functional WordPress website with the following services: lighttpd, MariaDB, PHP
 2. Set up a service of my choice that is useful (NO NGINX or Apache2)
@@ -90,7 +111,9 @@ Checking if the mandatory setup is correct Check.png
 Preparation
 1. turn in a signature.txt file at the root of Git repo
 2. paste the file in the signature of my machine's virtual disk
-	2.1. Open the default installation folder (where VM's are
+	2.1. Open the default installation folder (where VM's are saved) - ~/VirtualBox VMs/
+	2.2. Retrieve the signature from the ".vdi" file of your virtual machine in sha1 format -> sha1sum rocky_serv.vdi | output -> 6e657c4619944be17df3c31faa030c25e43e40af
+3. VM's signature may be altered after first evaluation -> duplicate the VM or use save state
 
 Defense
 1. Create a new user and assign it to a group
@@ -104,4 +127,3 @@ Defense
 KDump -> 
 NGINX ->
 Apache2 ->
-
