@@ -1,26 +1,71 @@
-############ MANDATORY #################
+########### GUIDELINES ###############
 
-Virtualization -> https://www.redhat.com/en/topics/virtualization
+1. get a similar structure to BonusPartitions.png
+2. Set password rules:
+	2.1. User:
+		2.1.1. Can't include the name of the user
+		2.1.2. At least 7 chars that are not part of the former password
+		2.1.3. Axpire in 30 days
+		2.1.4. 2 days minimum wihtout changing the password after creating it 
+		2.1.5. User has to receive a warning message 7 days before expiration
+		2.1.6. Must be 10 chars long, 1 uppercase letter, 1 lowercase letter, 1 number, max 3 consecutive chars
+		2.1.7.Update password rules for the already existing users (chage)
+3. Setup SELinux to run on startup
+4. Root cannot connect using ssh
+5. Set up a firewall:
+	5.1. Active on startup
+	5.2. leave only 4242 port open
+6. Set up hostname to be [user]42
+7. Strict rules:
+	7.1. Authentication using sudo has to be limited to 3 attempts of password insertions
+	7.2. Custom message prompting after wrong password insertion 
+	7.3. Each action using sudo has to be archived(inputs and outputs). log files saved in "/var/log/sudo/folder"
+	7.4. TTY mode has to be enabled for security reasons
+	7.5. For security reasons, paths allowed for sudo must be restricted. Ex.: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+8. set up a user with a username login along with root user belonging to user42 and sudo groups
+9. Create a script (monitorinh.sh script Script.png)
+	9.1. developed in bash
+	9.2. at server startup and every 10 min.
+	9.3. script will display info:
+		9.3.1. operating system architechture and kernel version
+		9.3.2. number of physical processors
+		9.3.3. number of virtual processors
+		9.3.4. available RAM atm and utilization rate in percentage
+		9.3.5. current utilization rate of processors in percentage
+		9.3.6. date and time of last reboot
+		9.3.7. wether LVM is active or not
+		9.3.8. number of active connections
+		9.3.9. number of users using the server
+		9.3.10. number of users using the server
+		9.3.11. IPv4 address of my server and MAC address
+		9.3.12. number of commands executed with sudo program
+10. Set up a functional WordPress website with the following services: lighttpd, MariaDB, PHP
+11. Set up a service of my choice that is useful (NO NGINX or Apache2)
+12. Change all the passwords of the accounts present on the virtual machine, including the root
 
-Virtual Machine -> https://www.youtube.com/watch?v=mQP0wqNT_DI
 
-LVM -> https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/5/html/deployment_guide/ch-lvm#s1-lvm-intro-whatis
-1. Create 2 encrypted partitions using LVM. BornPartitions.png
+############# DELIVERY #################
 
-password (root and user)
-1. must not include the name of the user
-2. doesnt apply for root: must have at least 7 chars that are not part of the former password
+Preparation
+1. turn in a signature.txt file at the root of Git repo
+2. paste the file in the signature of my machine's virtual disk
+	2.1. Open the default installation folder (where VM's are saved) - ~/VirtualBox VMs/
+	2.2. Retrieve the signature from the ".vdi" file of your virtual machine in sha1 format -> sha1sum rocky_serv.vdi | output -> 6e657c4619944be17df3c31faa030c25e43e40af
+3. VM's signature may be altered after first evaluation -> duplicate the VM or use save state
+4. Checking if the mandatory setup is correct Check.png
 
-password user
-1. expire in 30 days
-2. 2 days minimum wihtout changing the password after creating it 
-3. user has to receive a warning message 7 days before expiration
-4. must be 10 chars long, 1 uppercase letter, 1 lowercase letter, 1 number, max 3 consecutive chars
+############ STUDY SOURCES ###################
+
+< Virtualization >
+
+-|> A technology that allows the user to create multilpe simulated environments using a limited amount of the physical resources of a given device. Through this method, it is possible simulate another machine, a virtual machine that is independent from the operative system through which is running. This technology is possible to be applied directly(type 2) or indirectly, through an OS(type 1).
+-|> It is possible due to the use of an hyperviser, which asks the OS to use some of the resource that the OS is using(CPU, RAM, HDD/SSD)
 
 
-SELinux -> https://www.redhat.com/en/topics/linux/what-is-selinux
-1. set up SELinux to run on startup
+< SELinux >
 
+-|> Security-Enhanced Linux is a security architechture for Linux systems that allows administrators to have more control over hwho can access the system.
+-|> SELinux defines access controls for the applications, processes, and files on a system. It uses security policies, which are set of rules that tell SELinux what can or can't be accessed, to enforce the acess allowed by a policy.
 
 dnf (apt)-> https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/managing_software_with_the_dnf_tool/index#proc_providing-feedback-on-red-hat-documentation_managing-software-with-the-dnf-tool    https://www.redhat.com/en/blog/dnf-apt-users
 
@@ -29,98 +74,73 @@ package manager -> https://www.redhat.com/en/blog/how-manage-packages
 APTITUDE -> https://www.digitalocean.com/community/tutorials/what-is-apt
 /*old apt with full-screen UI and extra features. can detangle conflicts.*/
 
-SSH ->
-1. Root cannot connect using SSH
+> SSH <
+
+-|> Secure Shell. A network communication protocol that enables two computers to communicate and share data. This communication is encrypted, which means it can be used with insecure networks.
+It is usually used to "login" and perform operations on remote computers, but it may also be used for transferring data.
+-|> SSH sets up a connection between a user's device and a faraway machine, often a server. It uses encryption to scramble the data that traverses the connection. An intercepting party would only find something like static-random data that means nothing unless it is decrypted. 
+-|> SSH is very secure because it relies on a key authentication that use a private and a public key. Anyone can have access to the public key, but the private key is held by only the owner. When trying to connect to the public key, the user is check to see if it posseses the private key, and only then is the connection made.
+-|> To configure SELinux, one should use targeted policy or multi-level security (MLS). Targeted policy is the default way of configuring it. MLS is very complicated and typically used only by government organizations. etc/sysconfig/selinux files tells the user in which mode is configured (permissive, enforcing, disabled) and which policy is loaded.
+
+-|>
+
+> Tunneling <
+In networking, a method for moving packets across a network using a protocol or path they would not ordinarily be able to use. It's the act of wrapping data packets(small chunks of data) with additional information (called headers) to change their destination. SSH tunnels use a technique called port forwarding to send packets from one machine to another.
 
 MAC ->
 
-firewalld ->
-1. firewall must be active on startup
-2. leave ONLY 4242 port open
+firewalld -> 
 
-hostname
-1. hostname must be [user]42
+Cloud ->
 
-cron
+LVM -> https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/5/html/deployment_guide/ch-lvm#s1-lvm-intro-whatis
 
-fdisk
+cron ->
 
-cryptsetup
+fdisk ->
 
-lsblk
+cryptsetup ->
 
-grep
+lsblk ->
 
-tail
+grep ->
 
-network 
+tail ->
 
-filesystem types -ext4
+network ->
 
-filesystem vs linux filesystem
-mountpoints
+filesystem types -ext4 ->
 
-dmsetup
- what is a logical partion. what is a phyusical partition. what is an extended partition.
+filesystem vs linux filesystem ->
+
+mountpoints ->
+
+dmsetup ->
+
+logical partion ->
+
+physical partition ->
+
+extended partition ->
 
 sudo ->
-1. Strict rules:
-	1.1. authentication using sudo has to be limited to 3 attempts of password insertions
-	1.2. custom message prompting after wrong password insertion 
-	1.3. each action using sudo has to be archived(inputs and outputs). log files saved in "/var/log/sudo/folder"
-	1.4. TTY mode has to be enabled for security reasons
-	1.5. For security reasons, paths allowed for sudo must be restricted. Ex.: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 
 TTY -> 
 
-
 user ->
-1. set up a user with a username login along with root user belonging to user42 and sudo groups
 
 group ->
 
-monitorinh.sh script Script.png
-1. developed in bash
-2. at server startup and every 10 min.
-3.script will display info:
-	3.1. operating system architechture and kernel version
-	3.2. number of physical processors
-	3.3. number of virtual processors
-	3.4. available RAM atm and utilization rate in percentage
-	3.5. current utilization rate of processors in percentage
-	3.6. date and time of last reboot
-	3.7. wether LVM is active or not
-	3.8. number of active connections
-	3.9. number of users using the server
-	3.10. number of users using the server
-	3.11. IPv4 address of my server and MAC address
-	3.12. number of commands executed with sudo program
 
-After setting up configuration files
-1. change all the passwords of the accounts present on the virtual machine, including the root
+#############   DEFENSE   ###############
 
-Checking if the mandatory setup is correct Check.png
-
-############ BONUS ###################
-
-1. get a similar structure to BonusPartitions.png
-2. Set up a functional WordPress website with the following services: lighttpd, MariaDB, PHP
-2. Set up a service of my choice that is useful (NO NGINX or Apache2)
-
-############# DELIVERY #################
-Preparation
-1. turn in a signature.txt file at the root of Git repo
-2. paste the file in the signature of my machine's virtual disk
-	2.1. Open the default installation folder (where VM's are saved) - ~/VirtualBox VMs/
-	2.2. Retrieve the signature from the ".vdi" file of your virtual machine in sha1 format -> sha1sum rocky_serv.vdi | output -> 6e657c4619944be17df3c31faa030c25e43e40af
-3. VM's signature may be altered after first evaluation -> duplicate the VM or use save state
-
-Defense
 1. Create a new user and assign it to a group
 2. explain how the script works.
 3. interupt script created wihtout editing it
 4. take a look at cron
 5. MAYBE extra services. Open more ports to suit my needs. Firewalld rules apply
+6. get a similar structure to BonusPartitions.png
+
 
 ############# EXTRA INFO ###############
 
