@@ -2,7 +2,7 @@
 
 1. get a similar structure to BonusPartitions.png
 2. Set password rules:
-	2.1. User:
+2.1. User:
 		2.1.1. Can't include the name of the user
 		2.1.2. At least 7 chars that are not part of the former password
 		2.1.3. Axpire in 30 days
@@ -56,6 +56,35 @@ Preparation
 
 ############ STUDY SOURCES ###################
 
+WHOLE PROCESS IN A VIDEO -> https://www.youtube.com/watch?v=DwO7dn5iNJ0
+< Kernel >
+
+The core program under wich the OS is built upon, acting as a bridge between the user interface and the physical hardware. The kernel manages all system resources.
+
+
+< DKMS >
+
+-|> Dynamic Kernel Module Support, is a framework in LInux that simplifies the process of building and managing a kernel modules whose source code is located outside the main kernel source tree. A tool that helps automatically rebuild kernel modules when a new kernel is installed, ensuring compatibility.
+-|> Module Management
+Manages the kernel modules that are not part of the standard kernel distribution
+-|> Automatic Rebuilding
+It automatically rebuilds these modules when a new kernel is installed, ensuring they remain functional
+-|> Simplified Installation
+Makes it easier to install and update external kernel modules
+-|> Version Tracking
+Keeps track of the module's version and ensures compatibility with the current kernel
+-|> The steps for its function are:
+	-|> Module Source Code Location outside the kernel tree.
+	-|> DKMS Configuration of the module.
+	-|> Kernel Installation by rebuilding the module.
+	-|> Module Installation of the rebuilt module and made available for use.
+
+
+< Anaconda>
+
+-|> An installer program used by Fedora and Red Hat to install an manage the operating system.
+
+
 < Virtualization >
 
 -|> A technology that allows the user to create multilpe simulated environments using a limited amount of the physical resources of a given device. Through this method, it is possible simulate another machine, a virtual machine that is independent from the operative system through which is running. This technology is possible to be applied directly(type 2) or indirectly, through an OS(type 1).
@@ -67,12 +96,18 @@ Preparation
 -|> Security-Enhanced Linux is a security architechture for Linux systems that allows administrators to have more control over hwho can access the system.
 -|> SELinux defines access controls for the applications, processes, and files on a system. It uses security policies, which are set of rules that tell SELinux what can or can't be accessed, to enforce the acess allowed by a policy.
 
-dnf (apt)-> https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/managing_software_with_the_dnf_tool/index#proc_providing-feedback-on-red-hat-documentation_managing-software-with-the-dnf-tool    https://www.redhat.com/en/blog/dnf-apt-users
 
 package manager -> https://www.redhat.com/en/blog/how-manage-packages
 
+
 APTITUDE -> https://www.digitalocean.com/community/tutorials/what-is-apt
+
+
+dnf (apt)-> https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/managing_software_with_the_dnf_tool/index#proc_providing-feedback-on-red-hat-documentation_managing-software-with-the-dnf-tool    https://www.redhat.com/en/blog/dnf-apt-users
+
+
 /*old apt with full-screen UI and extra features. can detangle conflicts.*/
+
 
 > SSH <
 
@@ -81,8 +116,6 @@ It is usually used to "login" and perform operations on remote computers, but it
 -|> SSH sets up a connection between a user's device and a faraway machine, often a server. It uses encryption to scramble the data that traverses the connection. An intercepting party would only find something like static-random data that means nothing unless it is decrypted. 
 -|> SSH is very secure because it relies on a key authentication that use a private and a public key. Anyone can have access to the public key, but the private key is held by only the owner. When trying to connect to the public key, the user is check to see if it posseses the private key, and only then is the connection made.
 -|> To configure SELinux, one should use targeted policy or multi-level security (MLS). Targeted policy is the default way of configuring it. MLS is very complicated and typically used only by government organizations. etc/sysconfig/selinux files tells the user in which mode is configured (permissive, enforcing, disabled) and which policy is loaded.
-
--|>
 
 > Tunneling <
 In networking, a method for moving packets across a network using a protocol or path they would not ordinarily be able to use. It's the act of wrapping data packets(small chunks of data) with additional information (called headers) to change their destination. SSH tunnels use a technique called port forwarding to send packets from one machine to another.
@@ -93,7 +126,100 @@ firewalld ->
 
 Cloud ->
 
-LVM -> https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/5/html/deployment_guide/ch-lvm#s1-lvm-intro-whatis
+< Boot Loader >
+
+-|> A software program that initializes and loads the OS onto a computer or device. IT's the first peice of code executed when a device is powered on. The bootloader verifies the integrity of the boot and recovery partitions and then transfers control to the OS kernel.
+
+
+< LVM >
+
+-|> Logical Volume Manager is a tool which includes allocating disks, striping, mirroring and resizing logical volumes. A hard drive or set of them is allocated to one or more physical volumes. LVM physical volumes can be placed on other block devices which might span two or more disks. The physical volumes are combined into logical volumes, with the exception of the /boot partition. The /boot partition cannot be on a logical volume group because the boot loader cannot read it. If the root (/) partition is on a logical volume, create a seperate /boot partition which is not a part of a volume group (a single logical volume that consist in a group of physical volumes).
+-|> The volume groups can be divided into logical volumes, which are assigned mount points, such as /home and / and file system types, such as ext2 or ext3. When partitions reach their full cpaacity, free space from the volume group can be added to the logical volume to increase the size of the partition. When a new hard drive is added to the system, it can be added to the volume group, and partitions that are logical volumes can be increased in size.
+-|> If an ext3 file system is being utilized, the hard drive is divided into partitions of defined sizes. If a partition becomes full, it is not easy to expand the size of the partition. Even if the partition is moved to another hard drive, the original hard drive space has to be reallocated as a different partition or not used.
+-|> Configuration of LVM is during the graphical installation process, text based installation process or kickstart. system-config-lvm utility is used to create LVM configuration post-installation. After that, Disk Druid can be used.
+-|> The steps to use LVM are:
+	-|> Creating physical volumes from the hard drives.
+	-|> Creating volume groups from thje physical volumes.
+	-|> Creating logical volumes from the volume groups and assign the logical volumes mount points.
+
+
+< BIOS >
+
+-|> Basic Input/Ouput System, is a crucial piece of firmware that resides on a computer's motherboard. It is responsible for initializing and testing hardware components during the boot-up process and dfacilitating communication between the operating system and the hardware. The Steps that make this possible are:
+	-|> Hardware Initialization, responsible for testing and initializing the essential hardware compontents.
+	-|> Power-On Self Test, a self check of the hardware.
+	-|> Boot Selection, the determination of which storage device to boot from, alowing the user to choose between different operating systems
+
+
+< EFI >
+
+-|> Extensible Firmware Interface, is a firmware interface that bridges the gap between the operating system and the hardware during computer startup. It is basically an enhanced BIOS with a more graphical interface, faster boot times, secure boot, which enhances the boot process, and better compatibility.
+
+
+< UEFI >
+
+-|> Unified Extensible Firmware Interface is an enhanced EFI.
+
+
+< Firmware >
+
+-|> A low level software thats embedded in a piece of hardware, which controlls directly its functioning.
+
+
+< Software >
+
+-|> A collection of uinstructions, data, or programs that tell a computer what to do. while the firmware is embedded in the hardware, therefore responsible for low level functions like booting and hardware communication, the software is used more for use-oriented taks like browsing the internet or running applications.
+
+
+< Partition Scheme >
+
+-|> A data structure on a storage device, the way a hardrive or other storage devices are divided into distinct sections called partitions, setting how the disk is divided into partitions, each acting as a seperate volume. 
+
+
+< MBR >
+
+-|> Master Boot Record, a partition scheme is an essential and crucial piece of data stored on the first sector of a hard disk or other storage devices. It's essentially a boot sector that contains the intial code necessary to load an operating system. It is responsible for the detection of the drive partition that holds the operative system. It is composed by:
+	-|> Boot Code, which is a small program that's executed when the computer is powered on. It searches for and loads the operating system's bootloader.
+	-|> PArtition Table, which describes the structure of the hard drive, including the nunber and location of partitions.
+	-|> Disk Signature, used to identify the hard drive and distinguish it from other drives.
+	-|>	MBR Signature (0xAA55), which indicates the presence of a valid MBR.
+-|> Read by the hardware firmware, it is responsible for booting the system executing the boot code, it identifies the active partition containing the bootloader for the OS and loads it into the memory.
+
+< GPT >
+
+-|> Globally Unique Identifers (GUIDs) Partition Table is a newer partitioning scheme that's part opf the UEFI standard and gradually replacing the older MBR scheme. It offers more flexibility and supports larger disks compared to MBR, particularly for moder UEFI-based systems. GPT uses globally unique identifiers(GUIDs) to define partitions, allowing for more than for more than 4 primary partitions and larger lofical block addressing (LBA) for larger disks. It works within these steps:
+	-|> GPT Header contains info about the disk, such as the number of partitions, and the location of the partition table.
+	-|> Partition Table sotres info about each partition, including its size, starting and ending points, and the GUID that identifies it.
+	-|> Protective MBR which is often placed at the beginning of the disk to protect the GPT data structure from being corrupted by older software that doesn't understand GPT.
+
+
+< MBR VS GPT >
+
+-|> 32-bit vs 64-bit LBA
+-|> 4 partitions vs 128 partitions
+-|> GPT includes a backup partition table
+-|> GPT includes CRC32 for improved data integrity
+-|> GPT is compatible with UEFI
+
+
+< Filesystem Types >
+
+-|> Different ways of an OS of storing, organizing and managing data on a storage device. These are:
+	-|> FAT (File Allocation Table), an older file system that is used in some older systems and USB drives.
+	-|> NTFS (New Technology File System), the standard file system for Windows, offering folder permissions, compression and encryption.
+	-|> exFAT (Extended File Allocation Table), used for flash drives and external drives, offering compatibility with both Windows and macOS.
+	-|> APFS (Apple File System), a modern file system used on Macs and iOS devices, allowing encryption, cloning and snapshots.
+	-|> Ext (Extended File System), a family of file systems commonly used in Linux and Unix-based systems, including ext2, ext3 and ext4.
+	-|> HFS (Hierarchical File System), used by older version of macOS, with HFS+ being its successor.
+	-|> NFS (Network File Systems), allows acces to files on remote computers as if they were local.
+	-|> GFS (Global File System), supports parallel access to files across multiple machines.
+	-|> ZFS (Zetabyte File System), a powerful file syustem known for its reliability and features like data compression, deduplicattion, and snapshots.
+
+
+< ext4 >
+
+-|> A journaling file system for Linux, developed as the successor to ext3. It's known for supporting larger filesystems and handling more files than its predecessor, making it suitable for moden storage needs. ext4 offers improvements in performance, realiability and storage cpaacity, including features like delayed allocation and a 48-bit block addressing scheme. Introduced in 2008, this most recent version of ext, allows files up to 16TB and volumes up to 1EB.
+
 
 cron ->
 
@@ -109,9 +235,6 @@ tail ->
 
 network ->
 
-filesystem types -ext4 ->
-
-filesystem vs linux filesystem ->
 
 mountpoints ->
 
