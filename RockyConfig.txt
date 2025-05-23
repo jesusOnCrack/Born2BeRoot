@@ -221,6 +221,11 @@ Cloud ->
 -|> A journaling file system for Linux, developed as the successor to ext3. It's known for supporting larger filesystems and handling more files than its predecessor, making it suitable for moden storage needs. ext4 offers improvements in performance, realiability and storage cpaacity, including features like delayed allocation and a 48-bit block addressing scheme. Introduced in 2008, this most recent version of ext, allows files up to 16TB and volumes up to 1EB.
 
 
+< SDA >
+
+-|> SCSI (Small Computer System Interface) Disk A.
+	-|> SCSI refers to a set of standards for physically connecting and transferring data between computers and peripheral devices, best known for its use with storage devices such as hard disk drives. These standards define commands, protocols, electrical, optical and logical interfaces.
+
 cron ->
 
 fdisk ->
