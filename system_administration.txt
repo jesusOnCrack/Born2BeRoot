@@ -43,6 +43,9 @@
 11. Set up a service of my choice that is useful (NO NGINX or Apache2)
 12. Change all the passwords of the accounts present on the virtual machine, including the root
 
+1. Download ISO
+2. Install
+
 
 ############# DELIVERY #################
 
@@ -119,6 +122,118 @@ It is usually used to "login" and perform operations on remote computers, but it
 
 > Tunneling <
 In networking, a method for moving packets across a network using a protocol or path they would not ordinarily be able to use. It's the act of wrapping data packets(small chunks of data) with additional information (called headers) to change their destination. SSH tunnels use a technique called port forwarding to send packets from one machine to another.
+
+< BRIDGED VS NAT >
+
+-|> Bridged makes the VM act is if it was connected to the same cable/network as the host computer. It get addresses the same way everything else gets addresses on that network. Probably from some DHCP server running somewhere. NAT basically sets up your computer as a virtual router, DHCP, and firewall. It separates the VM from the host, and the rest of the network. The reason you might want NAT is if you want to try to separate your VM from the rest of your network. If you want to access resources from the VM that the host has access to, then you almost certainly want bridged. Many protocols like SMB don't really work well through a NAT.
+
+
+< DHCP >
+
+-|> Dynamic Host Configuration Protocol, is a network management protocol used to automatically assign IP addresses and other network configuration (like DNS, gateway) to devices on a network.
+-|> Steps:
+	-|> Assigns a IP address.
+	-|> Provides the subnet mask.
+	-|> Gives the default gateway.
+	-|> Supplies DNS server information.
+
+
+< cryptsetup >
+
+-|> A utility to set up and manage disk encryption using the dm-crypt kernel moodule on Linux systems. It is used with LUKS, which provides a standard format for disk encryption. Disk encryption, securing external drive setup and encrypting swap partitions.
+-|> Steps:
+	-|> Device Encryption, initializing and configuring encrypted volumes using LUKS or plain dm-crypt.
+	-|> Opening Encrypted Volumes, unlocking and mapping an encrypted deviceto a decrypted virtual device.
+	-|> Managing LUKS Volumes, adding/removing passphrases, changing encryption keys and checking volume integrity.
+	-|> LUKS Header Operations, backing up and restoring LUKS headers and dumping LUKS header information.
+
+
+< LUKS >
+
+-|> Linux Unified Key Setup, a standard for disk encryption on Linux, manages encryption keys and metadata for block device encryption using dm-encrypt, a Linux kernel subsystem. It doesn't handle encryption itself, byt provides a structure to make using encryption secure and practical.
+-|> Features:
+	-|> Multiple Passphares, supports up to 8 key slots.
+	-|> Secure Key Management, Encryption keys are never exposed directly, only passphrases are used to unlock encryption keys.
+	-|> Metadata Storage, stores encryption parameters (cipher, hash, key size) ina standardized header on the device).
+	-|> Compatibility, because it's a standard, LUKS-encrypted volumes can be moved between systems and still be accessible.
+	-|> Header Backup/Restore, the LUKS header can be backed up in case of damage - important because losing the header means losing access to your data.
+
+
+< TCP >
+
+-|> Transmission Control Protocol, is one of the core protocols of the Internet Protocol(IP) suite. It's a connection-oriented, reliable transport protocol that ensures ordered and error-checked delivery of data between computers over a network. It works alongside IP, which handles addressing and routing.	
+-|> Features:
+	-|> Reliable, guarantees data will be delivered and feebacks failure.
+	-|> Connection-Oriented, a connection (handshake) is established before data transfer begins.
+	-|> Ordered Delivery, data arrives in the same order it was sent.
+	-|> Error Checking, Uses checksums and acknowledgments.
+	-|> Prevents the sender from overwhelming the receiver.
+
+< RSA >
+
+-|> Rivest-Shamir-Adleman algorithm is one of the first public-key cryptosystems and is widely used for secure data transmission. It's named after its inventors, Ron Rivest, Adi Shamir and Leonard Adleman, who introduced it in 1977. It is used in SSH, TLS/SSL(HTTP websites), Digital Signatures and Secure Email (PGP/GPG).
+-|> The public key encrypts data and verifies a signature.
+-|> The private key decrypts data and creates a signature.
+-|> Algorithm:
+	-|> Key generation:
+		-|> Choice of two large prime numbers - p and q.
+		-|> Calculate n = p x q.
+		-|> Calculate φ(n) = (p-1) x (p+1).
+		-|> Choose an encryption exponent e such that 1 < e < φ(n).
+		-|> Compute the decryption exponent d, the modular inverse of e mod φ(n).
+	-|> Encryption:
+		-|> Convert plaintext into a number m such that 0 < m < n.
+		-|> Compute ciphertext c = m^e mod n.
+	-|> Decryption:
+		-|> Compute m = c^d mod n.
+
+
+< daemon >
+
+-|> Jokingly "Disk And Execution MONitor", but actually coming from the greek mythology - a guiding spirit, is a long-running background process/service on Unix-like operating systems that runs continously and performs specific tasks or services without direct user interaction that starts at boot time. Examples are:
+	-|> ssd, Handles incoming SSH connections.
+	-|> httpd, Runs a web server(e.g., Apache).
+	-|> crond, Manages scheduled taks(cron jobs).
+	-|> systemd, System and service manager.
+	-|> cupsd, Handles printing services.
+
+
+< PID >
+
+-|> Process IDentifier, is a unique number that the operating system assigns to each running process. Ways to manipulate:
+	-|> ps, show all running process.
+	-|> ps -ef, alternative format to list process.
+	-|> pidof <program>, get PID of a running program.
+	-|> kill <PID>, terminate a process.
+	-|> top/htop, interactive process viewer with PIDs.
+	-|> kill -9 <PID>, forcefully kill a process (SIGKILL).
+-|> init/systemd process always has PID 1.
+-|> Only sudo or owner user can kill or control processess.
+
+
+< systemctl >
+
+-|> The command-line tool used to control and manage services (daemons) system states, and units on Linux systems that use systemd as their init system.
+
+
+< systemd > is the init system used by most modern Linux distributions (Ubuntu, Debian, CentOS, Fedora, Arch). It manages services, mount points, timers (cron jobs), and system startup and shutdown. systemctl is the tool to interact with it. Useful commands:
+	-|> sudo systemctl start <service>.
+	-|> sudo systemctl stop <service>.
+	-|> sudo systemctl restart <service>.
+	-|> sudo systemctl reload <service>.
+	-|> sudo systemctl enable <service>.
+	-|> sudo systemctl disable <service>.
+	-|> sudo systemctl status <service>.
+	-|> sudo systemctl reboot.
+	-|> sudo systemctl poweroff.
+	-|> sudo systemctl suspend.
+	-|> systemctl list-units --type=service.
+	-|> systemctl list-unit-files --type=service.
+
+
+< hostname >
+
+-|> The name assigned to a computer (host) on a network. It is used to identify the machine both locally and on a network, similar to how a person-s name identifies them in a group.
 
 MAC ->
 
@@ -257,7 +372,7 @@ TTY ->
 
 user ->
 
-group ->
+	group ->
 
 
 #############   DEFENSE   ###############
