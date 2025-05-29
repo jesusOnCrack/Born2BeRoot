@@ -15,9 +15,7 @@
 5. Set up a firewall:
 	5.1. Active on startup
 	5.2. leave only 4242 port open
-6. Set up hostname to be [user]42
-7. Strict rules:
-	7.1. Authentication using sudo has to be limited to 3 attempts of password insertions
+6. Set up hostname to be [user]42 7. Strict rules: 7.1. Authentication using sudo has to be limited to 3 attempts of password insertions
 	7.2. Custom message prompting after wrong password insertion 
 	7.3. Each action using sudo has to be archived(inputs and outputs). log files saved in "/var/log/sudo/folder"
 	7.4. TTY mode has to be enabled for security reasons

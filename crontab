@@ -1,0 +1,45 @@
+#!/bin/bash
+
+ARCH = $(uname -m)
+KERNEL = $(uname -r)
+CPU_PHYS = $(lscpu | grep '^Socket(s):' | awk '{print $2}')
+CPU_VIR = $(lscpu | grep '^CPU(s):' | awk '{print $2}')
+DISTRO = $(cat /etc/redhat-release | awk '{print $1}')
+RAM_USAGE = $(free -m | awk 'NR==2{printf "%.0f/%.0fMB (%.2f%%)", $3, $2, $3*100/$2}')
+DISK_USAGE
+DISK_USAGE = $(df -BG --output=size,used,pcent / | awk 'NR==2 {printf "%s/%s (%s)\n", $2, $1, $3}')
+CPU_LOAD = $(top -bn1 | grep "Cpu(s)" | awk '{printf "%.1f%%", $2+$4}')
+LAST_BOOT = $(uptime -s)
+IPV4 = $(/usr/sbin/ip addr show enp0s3 | grep "inet " | awk '{print $2}' | cut -d'/' -f1 2>/dev/null || echo "N/A")
+MAC = $(/usr/sbin/ip addr show enp0s3 | grep "link/eth" | awk '{print $2}' 2>/dev/null || echo "N/A")
+USER_COUNT = $(who | wc -l)
+ACTIVE_COMMS = $(/usr/sbin/ss -tun | grep -c 'ESTAB')
+
+if lsblk -o TYPE | grep -q "lvm"; then
+    LVM_STATUS = "Active"
+else
+    LVM_STATUS = "Inactive"
+fi
+
+SUDO_CMDS = $(journalctl _COMM=sudo | grep COMMAND | wc -l)
+
+wall << EOF
+
+########################################################################
+######################### SYSTEM MONITORING ############################
+#                  #
+# Architecture     # $ARCH $DISTRO $KERNEL
+# Physical CPU(s)  # $CPU_PHYS
+# Virtual CPUY(s)  # $CPU_VIR
+# RAM              # $RAM_USAGE
+# Disk             # $DISK_USAGE
+# CPU USAGE        # $CPU_LOAD
+# Last Reboot      # $LAST_BOOTj
+# LVM Active       # $LVM_STATUS
+# TCP Connections  # $ACTIVE_COMMS
+# User Logg        # $USER_COUNT
+# Network          # IP $IPV4 ($MAC)
+# Sudo             # $SUDO_CMDS
+########################################################################
+
+EOF
