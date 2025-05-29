@@ -157,15 +157,6 @@ In networking, a method for moving packets across a network using a protocol or 
 	-|> Header Backup/Restore, the LUKS header can be backed up in case of damage - important because losing the header means losing access to your data.
 
 
-< TCP >
-
--|> Transmission Control Protocol, is one of the core protocols of the Internet Protocol(IP) suite. It's a connection-oriented, reliable transport protocol that ensures ordered and error-checked delivery of data between computers over a network. It works alongside IP, which handles addressing and routing.	
--|> Features:
-	-|> Reliable, guarantees data will be delivered and feebacks failure.
-	-|> Connection-Oriented, a connection (handshake) is established before data transfer begins.
-	-|> Ordered Delivery, data arrives in the same order it was sent.
-	-|> Error Checking, Uses checksums and acknowledgments.
-	-|> Prevents the sender from overwhelming the receiver.
 
 < RSA >
 
@@ -233,11 +224,6 @@ In networking, a method for moving packets across a network using a protocol or 
 
 -|> The name assigned to a computer (host) on a network. It is used to identify the machine both locally and on a network, similar to how a person-s name identifies them in a group.
 
-MAC ->
-
-firewalld -> 
-
-Cloud ->
 
 < Boot Loader >
 
@@ -339,20 +325,173 @@ Cloud ->
 -|> SCSI (Small Computer System Interface) Disk A.
 	-|> SCSI refers to a set of standards for physically connecting and transferring data between computers and peripheral devices, best known for its use with storage devices such as hard disk drives. These standards define commands, protocols, electrical, optical and logical interfaces.
 
+
+< TTY >
+
+-|> TeleTYpe writer, refers to physical devices that even today are used by deaf people to communicate through phones. In Unix/Linux systems refers to the terminal and is used to refer to an actual terminal compared to a script or program that simulates one.
+
+
+< PATH >
+
+-|> An environment variable that tells the system where to look for when a command is used by the user. The system is gonna look for the executable and will run the first iteration that finds.
+
+< sudoers >
+
+-|> A file to manage root permissions and its intricacies.
+-|> Defaults:
+	-|> scure_path, its an alternative PATH for when a command is used with sudo. This way, any attemps to run fake commands like "ls" or "cd" are fought.
+	-|> passwd_tries, sets a limit of how many times can a password be attemped each time the sudo command is used.
+	-|> log_input, defines that any sudo session (the time after using sudo that doesn't need any further password) input is logged into a file.
+	-|> log_output, defines that any sudo session output is logged into a file.
+	-|> iolog_dir, defines the directory of the file where the sudo session loggs are stored.
+
+
+< cron >
+
+-|> A cronometer daemon that runs jobs automatically at schedule times.
+-|> Useful commands:
+	-|> crontab -e (cron table), set scripts to run at a defined pace for the current user. Use with sudo to modify root's (all users) in /tmp/crontab.*
+	-|> crontab -l, list current cron jobs.
+	-|> crontab -r, remove crontab, deleting all jobs.
+
+############# THE INTERNET #############
+
+< Data Flow >
+
+-|> Several communication layers have to happern for data to flow from one place to another through the internet. This is made possible to a load of programs, servers, interfaces and systems. For starters, the steps for the flow of data to happern are:
+	1. The user types www.example.com into a browser.
+	2. Application Layer (HTTP) sends a request.
+	3. Transport Layer (TCP) breaks it into segments, ensures delivery.
+	4. Internet Layer (IP) routes it across networks.
+	5. Link Layer sends it physically over Ethernet or Wi-Fi.
+	6. At the other end, the process reverses - the server receives and replies.
+
+< Packets >
+
+-|>
+
+
+< Internet Protocol Suite >
+
+-|> Commonly known as TCP/IP, is a framework for organizing the set of communication protocols used in the Internet and similar computer networks according to functional criteria. The foundational protocols in the suit are:
+	-|> TCP (Transmission Cotnrol Protocol).
+	-|> UDP (User Datagram Protocol).
+	-|> IP (Internet Protocol).
+-|> The internet protocol suite provides end-to-end data communication specifying how data should be packetized, addressed, transmitted, routed, and received. This funcitonality is organized into four abstraction layers of protocol classification, to hide the working details of a subsystem:
+	-|> Link Layer - Contains communication methods for data that remains within a signle network segment (link). 
+	-|> Internet Layer - Provides internetworking between independent networks.
+	-|> Transport Layer - Handles host-to-host communication.
+	-|> Application Layer - providing process-to-process data exchange for applications.
+-|> The IETF (Engeneering Task Force) maintains the Internet Protocol suite technical standards.
+
+
+< OSI >
+
+-|> The Open System Interconnection (OSI) model is a reference model developed by the Internation Organization for Standardization that provides a common basis for the coordination of standards development for the purpose of systems interconnection. It represents the communication system through the idea of components that are destinguished in seven abstraction layers from lowest to highest:
+	-|> Physical - Closely associated with the physical connection between devices. Provides an electrical, mechanical and procedural interface to the transmission medium, specifying the shapes and properties of the electrical connectors, the frequencies to transmit on, the line code to use and similar low-level parameters. It is implemented in a dedicated PHY, which connects a link layer device (often called MAC) to a physical medium such as an optical fiber or copper cable and includes 2 layers within itself (PCS and PMD).
+		-|> Physical Coding Sublayer (PCS) - A network protocol sublayer in the Fast Ethernet, Gigabit Ethernet and 10 Gigabit Ethernet standards. Resides at the top of the physical layer and provides an interface between the physuical medium attachment sublayer (PMA) and the media-independent interface (MMI).
+	-|> Data Link - The protocol layer that transfers data between nodes on a network segment across the physical layer. It provides the functional and procedural means to transfer data between network entities and may also provide the means to detect and possibly correct errors that can occur in the physical layer.
+	-|> Network - Responsible for packet forwarding including routing through intemediate routers.
+	-|> Transport - A group of protocols that provide end-to-end communication services for applications. It provides services such as connection-oriented communication, reliability, flow control, and multiplexing.
+	-|> Session - Provides the mechanism for opening, closing and managing a sessino between end-user application processes, like a semi-permanent dialogue. They consist on requests and responses that occur between applications.
+	-|> Presentation - Translates the data for the network. Commonly called the syntax layer, responding to service requests from the application layer and issuing service requests to the session layer through a unique presentation service acces point (PSAP).
+	-|> Application - Specifies the shared comuncation protocols and interface methods used by hosts in a communcation network.
+
+
+< Information System >
+
+-|> Any system that collects, processes, stores, and distributes information. It relies on the existence of:
+	-|> Hardware - Servers, client devices and network equipment.
+	-|> Software - Browsers, web servers, content management systems, databases.
+	-|> Data - Web pages, multimedia, user data, links, databases.
+	-|> People - Users, developers, administrators, content creators.
+	-|> Processes - Methods for data colection, content delivery, updates, access control.
+
+
+< WWW >
+
+-|> World Wide Web, is an information system that enables content sharing over the Internet through user-friendly ways menat to appeal to users beyond IT specialists and hobbyists. It alows documents and other web recources to be accessed over the Internet according to specific rules of the HTTP. Invented by Tim Berners-Lee in CERN in 1989, it was conceived as a universal linked information system. Documents and other media content are made available to the network through web servers and can be accessed by programs such as web browsers.
+
+
+
+< IP >
+
+-|> The Internet Protocol, is the network layer communications protocol in the Internet protocol suite for relaying datagrams across network boundaries. Its routing function enables internetworking ane essentially establishes the Internet. It delivers packets from the source host to the destination host solely based on the IP addresses in the packed headers, defining packet structures that encapsulate the data to be deliveres. It also defines addressing methods that are used to label the datagram with source and destination information.
+
+
+< TCP >
+
+-|> Transmission Control Protocol, is one of the core protocols of the Internet Protocol(IP) suite. It's a connection-oriented, reliable transport protocol that ensures ordered and error-checked delivery of data between computers over a network. It works alongside IP, which handles addressing and routing.	
+-|> Features:
+	-|> Reliable, guarantees data will be delivered and feebacks failure.
+	-|> Connection-Oriented, a connection (handshake) is established before data transfer begins.
+	-|> Ordered Delivery, data arrives in the same order it was sent.
+	-|> Error Checking, Uses checksums and acknowledgments.
+	-|> Prevents the sender from overwhelming the receiver.
+
+
+< HHTP >
+
+-|> Hypertext Transfer Protocol, is an application layer protocol in the Internet protocol suite model for distributed, collaborative, hypermedia information systems. HTTP is the foundation of data communication for the World Wide Web
+
+
+< SMTP >
+
+-|>
+
+
+< DNS >
+
+-|>
+
+
+< FTP >
+
+-|>
+
+
+< UDP >
+
+-|>
+
+
+< DHCP >
+
+
+< SNMP >
+
+-|>
+
+
+< URL >
+
+
+< HTML >
+
+
+< Lighttpd >
+
+-|> An open-source, secure, lightweight and fast web server optimized for high-performance environments with a low memory footprint and minimum CPU load. This software is suitable for static web pages and servers that have issues with load problems. It supports a wide range of features such as:
+	-|> Load Balancing - The process of distributing a set of tasks over a set of resources (computing units), with the aim of making their overall processing more efficient. It optimizes response times and avoids unvevenly overloading some compute nodes while other compute nodes are left idle. The load balancer is placed in front of the servers and routes requests to the least-busy or helathiest one, and redirects any failed server task to another.
+	-|> FastCGI - A binary protocol for interfacing interative programs with a web server. It is a variation on the earlier Common Gateway Interface, which is an interface that enables web servers to execute an external program to process HTTP or HTTPS user requests. When a web user submits a web form on a web page that uses CGI, it's data is sent to the web server within a HTTP request with a URL denoting a CGI script in a new computer process, passing the form data to it. The CGI script passes its output, usually in the form of HTML, to the web server, and the server relays it back to the browser as its response to the beowser's request.
+	-|> HTTP proxy - 
+	-|> WEBSockets -
+
+
+< MariaDB >
+
+
+user ->
+
+group ->
+
 cron ->
 
-fdisk ->
-
-cryptsetup ->
-
-lsblk ->
-
-grep ->
+crypts ->
 
 tail ->
 
 network ->
-
 
 mountpoints ->
 
@@ -364,13 +503,38 @@ physical partition ->
 
 extended partition ->
 
-sudo ->
+MAC ->
 
-TTY -> 
+firewalld -> 
 
-user ->
+Cloud ->
 
-	group ->
+
+#############  COMMANDS   ###############
+
+fdisk -> format disk or fixed disk. A partitioning tool that allows creating, viewing, deleting and modifying partitions on a hard disk, managing a partition table directly.
+
+sudo -> Super user do. used to run commands with root previleges.
+
+uname -> Print some system information.
+
+lscpu -> Display CPU architecthure information.
+
+free -> Display the total amount of free and used swap memory.
+
+df -> Display the amount of disk space available containing each file argument.
+
+top -> Provides a dynamic real-time view of a running system and displays system summary information.
+
+uptime -> Displays the time, how long the system has been running, how many users are logged on and the system load averages for the past 1, 5 and 15 minutes.
+
+ip -> show/manipulate routing, network devices, interfaces and tunnels.
+
+ss -> Investigates sockets, used to dump socket statistics.
+
+lsblk -> list block devices.
+
+journalctl -> query the systemd journal.
 
 
 #############   DEFENSE   ###############
