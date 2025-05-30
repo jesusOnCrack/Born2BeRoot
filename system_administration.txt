@@ -32,9 +32,7 @@
 		9.3.5. current utilization rate of processors in percentage
 		9.3.6. date and time of last reboot
 		9.3.7. wether LVM is active or not
-		9.3.8. number of active connections
-		9.3.9. number of users using the server
-		9.3.10. number of users using the server
+		9.3.8. number of active connections 9.3.9. number of users using the server 9.3.10. number of users using the server
 		9.3.11. IPv4 address of my server and MAC address
 		9.3.12. number of commands executed with sudo program
 10. Set up a functional WordPress website with the following services: lighttpd, MariaDB, PHP
@@ -430,7 +428,7 @@ In networking, a method for moving packets across a network using a protocol or 
 	-|> Prevents the sender from overwhelming the receiver.
 
 
-< HHTP >
+< HTTP >
 
 -|> Hypertext Transfer Protocol, is an application layer protocol in the Internet protocol suite model for distributed, collaborative, hypermedia information systems. HTTP is the foundation of data communication for the World Wide Web
 
@@ -479,6 +477,9 @@ In networking, a method for moving packets across a network using a protocol or 
 
 
 < MariaDB >
+
+
+< FTP >
 
 
 user ->
@@ -535,6 +536,8 @@ ss -> Investigates sockets, used to dump socket statistics.
 lsblk -> list block devices.
 
 journalctl -> query the systemd journal.
+
+chown ->
 
 
 #############   DEFENSE   ###############
